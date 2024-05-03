@@ -7,8 +7,8 @@ const App: Component = () => (
     <div class={styles.App}>
         <header class={styles.header}>
             <img src={logo} class={styles.logo} alt="logo" />
-            <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+            <p class="text-red-400 font-black border border-green-500 rounded-lg py-2 px-4">
+                Edit <code>src/App.tsx</code> and save to reload.
             </p>
             <a
                 class={styles.link}
@@ -16,7 +16,7 @@ const App: Component = () => (
                 target="_blank"
                 rel="noopener noreferrer"
             >
-          Learn Solid
+                Learn Solid
             </a>
         </header>
     </div>
