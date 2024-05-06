@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --c-bg: #151515;
+    --c-on-bg: white;
+
+    --c-bg-2: #202020;
+
+    --c-border-1: #a0a0a0
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --c-bg: #f0f0f0;
+        --c-on-bg: black;
+        --c-bg-2: white;
+    }
+}
+
+body {
+    background-color: var(--c-bg);
+    color: var(--c-on-bg);
+    font-family: "Marcellus", serif;
+}
