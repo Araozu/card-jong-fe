@@ -11,6 +11,9 @@ module.exports = {
                 "c-bg-2": "var(--c-bg-2)",
                 "c-border-1": "var(--c-border-1)",
             },
+            fontFamily: {
+                "sans-serif": ["'Secular One'", "'sans-serif'"],
+            },
         },
     },
     plugins: [],

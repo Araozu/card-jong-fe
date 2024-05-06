@@ -1,6 +1,7 @@
 import { A } from "@solidjs/router";
 import { createSignal, onMount, Show } from "solid-js";
 import { backend, UserInfo } from "../utils";
+import { Card } from "../components/Card";
 
 
 export function Index() {
@@ -91,15 +92,12 @@ export function Index() {
                     Go to game rules
                 </A>
             </div>
-        </div>
-    );
-}
-
-
-function Registration() {
-    return (
-        <div>
-            :D
+            <div class="h-16" />
+            <div class="text-center">
+                <Card />
+                <Card />
+                <Card />
+            </div>
         </div>
     );
 }
