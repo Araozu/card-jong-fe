@@ -100,7 +100,7 @@ export function Index() {
                     <Card value={4} />
                 </div>
                 <div class="inline-block rotate-6 -translate-x-2 translate-y-1 hover:-translate-y-2 transition-transform">
-                    <Card value={36} />
+                    <Card value={37} />
                 </div>
             </div>
         </div>

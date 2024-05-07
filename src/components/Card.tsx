@@ -14,6 +14,9 @@ export function Card(props: {value: number}) {
 
     let icon = null;
     switch (cardType) {
+        case CardType.Hidden:
+            icon = <span class="inline-block absolute left-2 top-2 w-[2.75rem] h-[4.75rem] border-2 border-c-border-1" />;
+            break;
         case CardType.Club:
             icon = <ClubIcon class="absolute bottom-1 right-1" fill={textColor} />;
             break;

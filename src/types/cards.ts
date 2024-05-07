@@ -1,5 +1,6 @@
 
 export enum CardType {
+    Hidden,
     Club,
     Diamond,
     Heart,
@@ -20,6 +21,8 @@ const tailwindCardColors: Array<[string, string]> = [
     ["var(--card-green-bg)", "var(--card-on-green-bg)"],
     // blue
     ["var(--card-blue-bg)", "var(--card-on-blue-bg)"],
+    // gray
+    ["", ""],
 ];
 
 
@@ -30,6 +33,9 @@ const tailwindCardColors: Array<[string, string]> = [
  * @returns The type of card and its value (A, 1, 2, etc), if any
  */
 export function intToCardType(value: number): [CardType, string, [string, string]] {
+    if (value === -1) {
+        return [CardType.Hidden, "", tailwindCardColors[4]];
+    }
     switch ((value << 23) >>> 28) {
         case 0: {
             const type = ((value & 1) === 1) ? CardType.Club : CardType.Spade;
