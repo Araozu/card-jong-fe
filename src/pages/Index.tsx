@@ -94,9 +94,15 @@ export function Index() {
             </div>
             <div class="h-16" />
             <div class="text-center">
-                <Card value={38} />
-                <Card value={4} />
-                <Card value={36} />
+                <div class="inline-block -rotate-6 translate-x-2 translate-y-1">
+                    <Card value={38} />
+                </div>
+                <div class="inline-block">
+                    <Card value={4} />
+                </div>
+                <div class="inline-block rotate-6 -translate-x-2 translate-y-1">
+                    <Card value={36} />
+                </div>
             </div>
         </div>
     );
