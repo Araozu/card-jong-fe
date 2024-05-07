@@ -35,14 +35,14 @@ export function Card(props: {value: number}) {
     }
 
     return (
-        <div class={"inline-block w-16 h-24 border-2 border-c-border-1 relative"}
+        <button class={"inline-block w-16 h-24 border-2 border-c-border-1 relative select-none"}
             style={{"color": textColor, "background-color": bgColor}}
         >
             <span class="absolute top-1 left-1 font-bold text-4xl font-sans-serif">
                 {cardValue}
             </span>
             {icon}
-        </div>
+        </button>
     );
 }
 

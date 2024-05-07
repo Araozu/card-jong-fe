@@ -92,26 +92,16 @@ export function Index() {
                     Go to game rules
                 </A>
             </div>
-            <div class="h-16" />
-            <div class="text-center">
-                <div class="inline-block -rotate-6 translate-x-2 translate-y-1">
+            <div class="text-center py-8">
+                <div class="inline-block -rotate-6 translate-x-2 translate-y-1 hover:-translate-y-2 transition-transform">
                     <Card value={38} />
                 </div>
-                <div class="inline-block">
+                <div class="inline-block hover:-translate-y-2 transition-transform">
                     <Card value={4} />
                 </div>
-                <div class="inline-block rotate-6 -translate-x-2 translate-y-1">
+                <div class="inline-block rotate-6 -translate-x-2 translate-y-1 hover:-translate-y-2 transition-transform">
                     <Card value={36} />
                 </div>
-            </div>
-            <div class="text-center">
-                <Card value={64} />
-                <Card value={96} />
-                <Card value={128} />
-                <Card value={160} />
-                <Card value={192} />
-                <Card value={224} />
-                <Card value={256} />
             </div>
         </div>
     );
