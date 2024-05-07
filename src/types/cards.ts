@@ -58,11 +58,11 @@ export function intToCardType(value: number): [CardType, string, [string, string
         case 5:
             return [CardType.BlueJoker,"", tailwindCardColors[3]];
         case 6:
-            return [CardType.Jack,"", tailwindCardColors[2]];
+            return [CardType.Jack,"J", tailwindCardColors[2]];
         case 7:
-            return [CardType.Queen,"", tailwindCardColors[2]];
+            return [CardType.Queen,"Q", tailwindCardColors[2]];
         case 8:
-            return [CardType.King,"", tailwindCardColors[2]];
+            return [CardType.King,"K", tailwindCardColors[2]];
         default:
         {
             console.error("Encountered a badly encoded card: ", value);

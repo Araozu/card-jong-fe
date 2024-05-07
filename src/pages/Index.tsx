@@ -104,6 +104,15 @@ export function Index() {
                     <Card value={36} />
                 </div>
             </div>
+            <div class="text-center">
+                <Card value={64} />
+                <Card value={96} />
+                <Card value={128} />
+                <Card value={160} />
+                <Card value={192} />
+                <Card value={224} />
+                <Card value={256} />
+            </div>
         </div>
     );
 }
