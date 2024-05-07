@@ -2,13 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* General colors */
+:root {
+    --green-1: #22c55e;
+    --red-1: red;
+    --blue-1: blue;
+    --black-1: black;
+}
+
+/* Dark theme colors */
 :root {
     --c-bg: #151515;
     --c-on-bg: white;
 
     --c-bg-2: #202020;
 
-    --c-border-1: #a0a0a0
+    --c-border-1: #a0a0a0;
+
+    /* Card colors */
+    --card-green-bg: var(--green-1);
+    --card-on-green-bg: white;
+    --card-red-bg: var(--red-1);
+    --card-on-red-bg: white;
+    --card-blue-bg: var(--blue-1);
+    --card-on-blue-bg: white;
+    --card-black-bg: black;
+    --card-on-black-bg: white;
 }
 
 @media (prefers-color-scheme: light) {
@@ -16,6 +35,15 @@
         --c-bg: #f0f0f0;
         --c-on-bg: black;
         --c-bg-2: white;
+        /* Card colors */
+        --card-on-green-bg: var(--green-1);
+        --card-green-bg: white;
+        --card-on-red-bg: var(--red-1);
+        --card-red-bg: white;
+        --card-on-blue-bg: var(--blue-1);
+        --card-blue-bg: white;
+        --card-on-black-bg: black;
+        --card-black-bg: white;
     }
 }
 

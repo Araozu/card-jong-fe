@@ -6,7 +6,7 @@ import { Card } from "../components/Card";
 
 export function Index() {
     const [loading, setLoading] = createSignal(false);
-    const [userInfo, setUserInfo] = createSignal<UserInfo | null>(null);
+    const [userInfo] = createSignal<UserInfo | null>(null);
     const [error, setError] = createSignal("");
     const [username, setUsername] = createSignal("");
 
@@ -94,9 +94,9 @@ export function Index() {
             </div>
             <div class="h-16" />
             <div class="text-center">
-                <Card />
-                <Card />
-                <Card />
+                <Card value={38} />
+                <Card value={4} />
+                <Card value={36} />
             </div>
         </div>
     );
