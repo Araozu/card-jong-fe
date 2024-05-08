@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image "ianwalter/pnpm"
+                    image "gplane/pnpm"
                     reuseNode true
                 }
             }
