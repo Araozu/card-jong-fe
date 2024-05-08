@@ -5,7 +5,7 @@ export const backend = axios.create({
 });
 
 export type UserInfo = {
-    UserId: number,
+    UserId: string,
     Username: string,
 }
 

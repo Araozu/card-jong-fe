@@ -9,11 +9,41 @@ const usernameKey = "Username";
 
 export function Index() {
     const [userInfo, setUserInfo] = createSignal<UserInfo | null>(null);
+    const [validated, setValidated] = createSignal(false);
 
-    onMount(() => {
+    onMount(async() => {
         // attempt to get userinfo from localstorage
         // validate userinfo with backend
-        console.log("validating userinfo in localstorage");
+        const UserId = localStorage.getItem(userIdKey);
+        const Username = localStorage.getItem(usernameKey);
+
+        if (UserId === null || Username === null) {
+            return;
+        }
+
+        setUserInfo({
+            UserId,
+            Username,
+        });
+        setValidated(false);
+
+        try {
+            // validate in backend
+            await backend.get("/validate", {
+                headers: {
+                    "Authorization": `Bearer ${UserId}`,
+                },
+            });
+
+            // If the previous hasn't throw, the token is valid.
+            setValidated(true);
+        } catch (e) {
+            // If this throws, the userid is not validated
+            localStorage.removeItem(userIdKey);
+            localStorage.removeItem(usernameKey);
+            setUserInfo(null);
+            setValidated(false);
+        }
     });
 
     return (
@@ -26,10 +56,17 @@ export function Index() {
             <div class="py-4">
                 <h2 class="text-xl py-2 font-black">Play:</h2>
                 <Show when={userInfo() === null}>
-                    <UserRegistration setUserInfo={setUserInfo} />
+                    <UserRegistration setUserInfo={(i) => {
+                        setValidated(true);
+                        setUserInfo(i);
+                    }}
+                    />
                 </Show>
-                <Show when={userInfo() !== null}>
-                    <p>:D (user registered)</p>
+                <Show when={userInfo() !== null && !validated()}>
+                    <p>Validating user id...</p>
+                </Show>
+                <Show when={userInfo() !== null && validated()}>
+                    <LobbyConnection />
                 </Show>
             </div>
             <hr />
@@ -124,3 +161,10 @@ function UserRegistration(props: {setUserInfo: (u: UserInfo) => void}) {
     );
 }
 
+function LobbyConnection() {
+    return (
+        <div>
+            Lobby creation :D
+        </div>
+    );
+}
