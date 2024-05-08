@@ -2,6 +2,7 @@ import { A } from "@solidjs/router";
 import { createSignal, onMount, Show } from "solid-js";
 import { backend, UserInfo } from "../utils";
 import { Card } from "../components/Card";
+import { AxiosError } from "axios";
 
 
 export function Index() {
@@ -29,11 +30,16 @@ export function Index() {
                 throw new Error("Username is empty");
             }
 
-            const response = await backend.get("/register");
+            const response = await backend.get(`/register?username=${user}`);
             console.log(response.data);
         } catch (_e) {
-            const e = _e as Error;
-            setError(e.message);
+            const e = _e as AxiosError<{error: string}>;
+
+            if (e.response && e.response.data && e.response.data.error) {
+                setError(e.response.data.error);
+            } else {
+                setError(e.message);
+            }
         } finally {
             setLoading(false);
         }
