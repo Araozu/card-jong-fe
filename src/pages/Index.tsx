@@ -162,9 +162,53 @@ function UserRegistration(props: {setUserInfo: (u: UserInfo) => void}) {
 }
 
 function LobbyConnection() {
+    const [loading, setLoading] = createSignal(false);
+
+    const joinLobby = (ev: Event) => {
+        ev.preventDefault();
+    };
+
+    const createLobby = async() => {
+        //
+        setLoading(true);
+    };
+
     return (
-        <div>
-            Lobby creation :D
+        <div class="pl-2 border-l border-c-border-1">
+            <h3 class="text-xl py-2 font-bold">Join a lobby:</h3>
+
+            <form onSubmit={joinLobby}>
+                <label for="lobby-join-input">
+                    Enter the ID of the lobby you want to join:
+                </label>
+                <br />
+                <input
+                    id="lobby-join-input"
+                    type="text"
+                    class="bg-c-bg text-c-on-bg py-1 px-2 rounded border border-c-border-1 my-2"
+                />
+                <br />
+                <button
+                    class="inline-block py-2 px-4 rounded bg-blue-600 text-white
+                    disabled:opacity-50 disabled:cursor-not-allowed"
+                    type="submit"
+                    disabled={loading() || true}
+                >
+                    Join lobby
+                </button>
+            </form>
+
+            <h3 class="text-xl pt-6 pb-2 font-bold">Create a new lobby:</h3>
+
+            <button
+                class="inline-block py-2 px-4 rounded bg-blue-600 text-white
+                    disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={createLobby}
+                disabled={loading()}
+            >
+                Create a new lobby
+            </button>
+
         </div>
     );
 }
