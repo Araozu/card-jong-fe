@@ -1,4 +1,4 @@
-import { A } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import { createSignal, onMount, Show } from "solid-js";
 import { backend, UserInfo } from "../utils";
 import { Card } from "../components/Card";
@@ -163,14 +163,27 @@ function UserRegistration(props: {setUserInfo: (u: UserInfo) => void}) {
 
 function LobbyConnection() {
     const [loading, setLoading] = createSignal(false);
+    const [error, setError] = createSignal("");
+    const navigate = useNavigate();
 
     const joinLobby = (ev: Event) => {
         ev.preventDefault();
     };
 
     const createLobby = async() => {
-        //
         setLoading(true);
+
+        try {
+            const res = await backend.post<{LobbyId: string}>("/lobby/new");
+            console.log(res.data);
+            // Redirect to the lobby component using the received lobby id
+            navigate(`/lobby/${res.data.LobbyId}`);
+        } catch (_e) {
+            const e: Error = _e as Error;
+            setError(e.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -209,6 +222,7 @@ function LobbyConnection() {
                 Create a new lobby
             </button>
 
+            <p>{error()}</p>
         </div>
     );
 }
