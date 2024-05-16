@@ -1,6 +1,6 @@
 import { A, useNavigate } from "@solidjs/router";
 import { createSignal, onMount, Show } from "solid-js";
-import { backend, UserInfo } from "../utils";
+import { backend, set_auth_token, UserInfo } from "../utils";
 import { Card } from "../components/Card";
 import { AxiosError } from "axios";
 
@@ -119,6 +119,7 @@ function UserRegistration(props: {setUserInfo: (u: UserInfo) => void}) {
             props.setUserInfo(response.data);
             localStorage.setItem(userIdKey, response.data.UserId);
             localStorage.setItem(usernameKey, response.data.Username);
+            set_auth_token(response.data.UserId);
         } catch (_e) {
             const e = _e as AxiosError<{error: string}>;
 
