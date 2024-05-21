@@ -4,6 +4,7 @@ import {HashRouter, Route} from "@solidjs/router";
 
 import "./index.css";
 import {Index} from "./pages/Index";
+import {Lobby} from "./pages/Lobby";
 
 const root = document.getElementById("root");
 
@@ -15,6 +16,7 @@ render(
     () => (
         <HashRouter>
             <Route path="/" component={Index} />
+            <Route path="/lobby/:id" component={Lobby} />
         </HashRouter>
     ),
     root!,
