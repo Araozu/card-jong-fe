@@ -1,11 +1,14 @@
-import { Show, createSignal, onMount } from "solid-js";
+import { Show, createSignal, onCleanup, onMount } from "solid-js";
 import LoadingIcon from "../assets/loading.svg";
 import ErrorIcon from "../assets/error.svg";
+import { userIdKey } from "./Index";
+import { useNavigate } from "@solidjs/router";
 
 enum LobbyStatus {
     Connecting,
     Connected,
     Disconnected,
+    Authenticating,
     Error,
 }
 
@@ -13,6 +16,8 @@ const connectionRetryInterval = 5000;
 
 export function Lobby() {
     const [status, setStatus] = createSignal(LobbyStatus.Disconnected);
+    const navigate = useNavigate();
+
     let ws: WebSocket|null = null;
 
     const lobbyConnect = () => {
@@ -30,6 +35,20 @@ export function Lobby() {
         setStatus(LobbyStatus.Connected);
 
         // The first message must be authenticating with the server
+
+        const userId = localStorage.getItem(userIdKey);
+        if (userId === null) {
+            // Redirect to home page
+            ws?.close();
+            navigate("/");
+            return;
+        }
+
+        // Send an auth message to the server
+        ws!.send(JSON.stringify({
+            action: "auth",
+            value: userId,
+        }));
     };
 
     const onWsMessage = (ev: MessageEvent) => {
@@ -65,6 +84,9 @@ export function Lobby() {
     };
 
     onMount(lobbyConnect);
+    onCleanup(() => {
+        ws?.close();
+    });
 
     return (
         <div class="w-[40rem] mx-auto bg-c-bg-2 my-4 p-4 rounded shadow-md">
@@ -76,6 +98,12 @@ export function Lobby() {
                 <p>
                     <img class="inline-block h-6 animate-spin" src={LoadingIcon} alt="..." />
                     Connecting to the lobby
+                </p>
+            </Show>
+            <Show when={status() === LobbyStatus.Authenticating}>
+                <p>
+                    <img class="inline-block h-6 animate-spin" src={LoadingIcon} alt="..." />
+                    Logging in to the server
                 </p>
             </Show>
 

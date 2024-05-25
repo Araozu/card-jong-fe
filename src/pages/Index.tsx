@@ -4,8 +4,8 @@ import { backend, set_auth_token, UserInfo } from "../utils";
 import { Card } from "../components/Card";
 import { AxiosError } from "axios";
 
-const userIdKey = "UserId";
-const usernameKey = "Username";
+export const userIdKey = "UserId";
+export const usernameKey = "Username";
 
 export function Index() {
     const [userInfo, setUserInfo] = createSignal<UserInfo | null>(null);
