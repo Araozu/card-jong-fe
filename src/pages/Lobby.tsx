@@ -9,31 +9,49 @@ enum LobbyStatus {
     Error,
 }
 
+const connectionRetryInterval = 5000;
+
 export function Lobby() {
-    const [status, setStatus] = createSignal(LobbyStatus.Connecting);
+    const [status, setStatus] = createSignal(LobbyStatus.Disconnected);
     let ws: WebSocket|null = null;
 
-    const lobbyConnect = async() => {
+    const lobbyConnect = () => {
+        setStatus(LobbyStatus.Connecting);
         ws = new WebSocket(`${import.meta.env.VITE_WS_URL}/lobby/connect`);
 
-        ws.addEventListener("open", () => {
-            console.log("Connection open!");
-            setStatus(LobbyStatus.Connected);
-        });
+        ws.addEventListener("open", onWsOpen);
+        ws.addEventListener("message", onWsMessage);
+        ws.addEventListener("error", onWsError);
+        ws.addEventListener("close", onWsClose);
+    };
 
-        ws.addEventListener("message", (ev) => {
-            console.log("message from ws!");
-            console.log(ev);
-        });
+    const onWsOpen = () => {
+        console.log("Connection open!");
+        setStatus(LobbyStatus.Connected);
 
-        ws.addEventListener("error", (ev) => {
-            console.error(ev);
-            setStatus(LobbyStatus.Error);
-        });
+        // The first message must be authenticating with the server
+    };
 
-        ws.addEventListener("close", () => {
-            console.log("connection closed");
-        });
+    const onWsMessage = (ev: MessageEvent) => {
+        console.log("message from ws!");
+        console.log(ev.data);
+    };
+
+    const onWsError = (ev: Event) => {
+        console.error("error in connection");
+        console.error(ev);
+        setStatus(LobbyStatus.Error);
+    };
+
+    const onWsClose = () => {
+        // If the previous state is "Error", we don't set
+        // the state to Disconnected
+        if (status() !== LobbyStatus.Error) {
+            setStatus(LobbyStatus.Disconnected);
+        }
+
+        console.log(`connection closed. reconnecting in ${connectionRetryInterval}ms`);
+        setTimeout(lobbyConnect, connectionRetryInterval);
     };
 
     const send = () => {
